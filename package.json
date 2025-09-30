@@ -1,0 +1,36 @@
+{
+  "name": "truly_alarm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx --watch --env-file .env.local src/index.ts",
+    "start": "node --env-file .env.local dist/src/index.js",
+    "build": "tsc",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "17.2.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.34.0",
+    "@tsconfig/node22": "^22.0.2",
+    "@types/express": "^5.0.3",
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^24.0.13",
+    "eslint": "9.34.0",
+    "eslint-plugin-perfectionist": "^4.15.0",
+    "prettier": "^3.6.2",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.3",
+    "typescript": "5.9.2",
+    "typescript-eslint": "^8.36.0"
+  }
+}
