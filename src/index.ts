@@ -1,8 +1,8 @@
 import input from "input"; // npm install input
 import { sessions, TelegramClient } from "telegram";
 
-import { apiHash, apiId, channelUsername } from "./config.js";
-import { forwardMessage } from "./forward.js";
+import { apiHash, apiId, sourceChanel } from "./config.js";
+import { forwardToPrivateChannel } from "./forwardToTargetChanel.js";
 import { isInterestedAlarm } from "./isInterestedAlarm.js";
 import { saveSessionString } from "./saveSessionString.js";
 
@@ -31,18 +31,17 @@ export const stringSession = new StringSession(process.env.STRING_SESSION || "")
     await client.connect();
   }
 
-  console.log("You are now connected!");
-
-  const entity = await client.getEntity(channelUsername); // або просто username без https
+  const entity = await client.getEntity(sourceChanel); // або просто username без https
 
   client.addEventHandler(async (update) => {
     const msg = update.message;
     if (msg && msg.peerId?.channelId?.equals(entity.id)) {
+      //TODO: потрібно додати логіку яка
+      // буде слухати повідомленння тільки тоді коли є тривога
+
       if (isInterestedAlarm(msg.message)) {
-        await forwardMessage(client, msg.message);
+        await forwardToPrivateChannel(client, msg);
       }
     }
   });
 })();
-
-//

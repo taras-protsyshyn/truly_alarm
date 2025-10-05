@@ -3,5 +3,5 @@ dotenv.config();
 
 export const apiId = Number(process.env.API_ID);
 export const apiHash = process.env.API_HASH!;
-export const channelUsername = process.env.CHANNEL_USERNAME!;
-export const recipients = process.env.RECIPIENTS!.split(",");
+export const sourceChanel = process.env.SOURCE_CHANEL!;
+export const targetChanel = process.env.TARGET_CHANEL!;

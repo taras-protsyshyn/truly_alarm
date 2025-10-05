@@ -1,19 +1,20 @@
-const alarmKeywords = ["БпЛА", "КАБ"];
 const interestedRegions = [
   "нові дома",
+  "Нові Будинки",
+  "Нові Дома",
+  "Нові будинки",
+  "НБ",
   "НД",
+  "Немишля",
+  "Слобід",
   "немишля",
   "слобід",
   "ХТЗ",
   "півндений схід",
-  "південь",
 ];
 
 export function isInterestedAlarm(text: string): boolean {
-  const normalized = text.toLowerCase();
+  console.log("Checking text:", text);
 
-  if (!alarmKeywords.some((w) => normalized.includes(w))) {
-    return interestedRegions.some((kw) => normalized.includes(kw));
-  }
-  return false;
+  return interestedRegions.some((kw) => text.includes(kw));
 }
