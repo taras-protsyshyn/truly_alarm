@@ -1,5 +1,6 @@
 node_modules
 .env.local
+.env.test
 .env
 dist
 .DS_Store
