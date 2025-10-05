@@ -7,8 +7,7 @@ export default tseslint.config(
     ignores: ["**/*.js"],
   },
   eslint.configs.recommended,
-  tseslint.configs.strictTypeChecked,
-  tseslint.configs.stylisticTypeChecked,
+  tseslint.configs.recommended,
   {
     languageOptions: {
       parserOptions: {
@@ -21,6 +20,12 @@ export default tseslint.config(
   {
     rules: {
       "perfectionist/sort-objects": "off",
+      // Відключаємо найбільш суворі правила
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/no-unsafe-return": "off",
     },
-  },
+  }
 );

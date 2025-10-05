@@ -4,8 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx --watch --env-file .env.local src/index.ts",
-    "start": "node --env-file .env.local dist/src/index.js",
+    "dev": "tsx --watch --env-file .env src/index.ts",
+    "start": "node --env-file .env dist/src/index.js",
     "build": "tsc",
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
@@ -17,7 +17,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "dotenv": "17.2.1"
+    "dotenv": "17.2.1",
+    "input": "^1.0.1",
+    "telegram": "^2.26.22"
   },
   "devDependencies": {
     "@eslint/js": "9.34.0",
