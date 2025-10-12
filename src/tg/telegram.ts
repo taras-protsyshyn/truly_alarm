@@ -1,27 +1,35 @@
-import { sourceChanel, targetUser } from "../config.js";
+import { sourceChanel, targetChanel } from "../config.js";
 import { isInterestedAlarm } from "../isInterestedAlarm.js";
 import { forwardToTargetChannel } from "./forwardToTargetChannel.js";
-import { listenTgChannel } from "./listenTgChannel.js";
+import { listenSourceChannel } from "./listenSourceChannel.js";
+import { resolveTargetChannel } from "./resolveTargetChannel.js";
 import { runTelegram } from "./runTelegram.js";
 import { trackReactionOnMsg } from "./trackReactionOnMsg.js";
 
-export async function startTg() {
+export async function startTg({
+  targetUser,
+  onSkipUserReaction,
+}: {
+  onSkipUserReaction?: () => void;
+  targetUser: string;
+}) {
   const client = await runTelegram();
-  const channel = await client.getEntity(sourceChanel);
 
-  await listenTgChannel({
-    channelId: channel.id,
+  const sourceCh = await client.getEntity(sourceChanel);
+  const targetCh = await resolveTargetChannel(client, targetChanel);
+
+  await listenSourceChannel({
+    channelId: sourceCh.id,
     client,
     validateMessage: isInterestedAlarm,
     onMsg: async (msg) => {
-      await forwardToTargetChannel(client, msg);
+      await forwardToTargetChannel({ client, source: sourceCh, target: targetCh, msg });
 
       await trackReactionOnMsg({
         client,
-        chanelEntity: channel,
-        msgId: msg.id,
+        chanelEntity: targetCh,
         userName: targetUser,
-        reaction: "➕",
+        onSkipUserReaction,
       });
     },
   });

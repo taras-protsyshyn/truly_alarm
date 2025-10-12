@@ -1,24 +1,19 @@
 import { TelegramClient } from "telegram";
-import { Api } from "telegram";
+import { Entity } from "telegram/define.js";
 
 export async function resolveTargetChannel(
   client: TelegramClient,
   channelName: string
-): Promise<Api.InputPeerChannel> {
+): Promise<Entity> {
   const dialogs = await client.getDialogs();
 
   const match = dialogs.find((dialog) => {
-    return dialog.name === channelName && dialog.entity.className === "Channel";
+    return dialog.name === channelName && dialog.entity.className === "Chat";
   });
 
   if (!match) {
     throw new Error(`❌ Канал "${channelName}" не знайдено серед діалогів`);
   }
 
-  const channel = match.entity as Api.Channel;
-
-  return new Api.InputPeerChannel({
-    channelId: channel.id,
-    accessHash: channel.accessHash!,
-  });
+  return match.entity;
 }

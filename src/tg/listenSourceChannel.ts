@@ -1,19 +1,19 @@
 import { BigInteger } from "big-integer";
 import { TelegramClient } from "telegram";
 
-type TgChannelsListener = {
+type TgSourceChannelListener = {
   channelId: BigInteger;
   client: TelegramClient;
   onMsg: (msg: any) => void;
   validateMessage: (msg: string) => boolean;
 };
 
-export async function listenTgChannel({
+export async function listenSourceChannel({
   channelId,
   client,
   validateMessage,
   onMsg,
-}: TgChannelsListener) {
+}: TgSourceChannelListener) {
   client.addEventHandler(async (update) => {
     const msg = update.message;
 

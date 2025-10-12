@@ -1,21 +1,29 @@
-import { TelegramClient } from "telegram";
+import { Api, TelegramClient } from "telegram";
+import { Entity } from "telegram/define.js";
 
-import { targetChanel } from "../config.js";
-import { resolveTargetChannel } from "./resolveTargetChannel.js";
-
-export async function forwardToTargetChannel(
-  client: TelegramClient,
-  msg: { id: number; message: string; peerId: number }
-) {
+export async function forwardToTargetChannel({
+  client,
+  target,
+  source,
+  msg,
+}: {
+  client: TelegramClient;
+  msg: { id: number; message: string; peerId: number };
+  source: Entity;
+  target: Entity;
+}) {
   try {
-    const target = await resolveTargetChannel(client, targetChanel);
+    await client.invoke(
+      new Api.messages.ForwardMessages({
+        fromPeer: source,
+        id: [msg.id],
+        toPeer: target,
+        dropAuthor: false,
+        withMyScore: false,
+      })
+    );
 
-    await client.forwardMessages(target, {
-      fromPeer: msg.peerId,
-      messages: [msg.id],
-    });
-
-    console.log("📨 Переслано в приватний канал");
+    console.log("📨 Переслано в приватну групу");
   } catch (err) {
     console.error("❌ Не вдалося переслати:", err.message);
   }
