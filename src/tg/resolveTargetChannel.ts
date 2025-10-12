@@ -7,9 +7,9 @@ export async function resolveTargetChannel(
 ): Promise<Api.InputPeerChannel> {
   const dialogs = await client.getDialogs();
 
-  const match = dialogs.find(
-    (dialog) => dialog.name === channelName && dialog.entity.className === "Channel"
-  );
+  const match = dialogs.find((dialog) => {
+    return dialog.name === channelName && dialog.entity.className === "Channel";
+  });
 
   if (!match) {
     throw new Error(`❌ Канал "${channelName}" не знайдено серед діалогів`);
