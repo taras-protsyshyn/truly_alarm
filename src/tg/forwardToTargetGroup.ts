@@ -1,7 +1,7 @@
 import { Api, TelegramClient } from "telegram";
 import { Entity } from "telegram/define.js";
 
-export async function forwardToTargetChannel({
+export async function forwardToTargetGroup({
   client,
   target,
   source,

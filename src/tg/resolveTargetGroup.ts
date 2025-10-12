@@ -1,18 +1,18 @@
 import { TelegramClient } from "telegram";
 import { Entity } from "telegram/define.js";
 
-export async function resolveTargetChannel(
+export async function resolveTargetGroup(
   client: TelegramClient,
-  channelName: string
+  groupName: string
 ): Promise<Entity> {
   const dialogs = await client.getDialogs();
 
   const match = dialogs.find((dialog) => {
-    return dialog.name === channelName && dialog.entity.className === "Chat";
+    return dialog.name === groupName && dialog.entity.className === "Chat";
   });
 
   if (!match) {
-    throw new Error(`❌ Канал "${channelName}" не знайдено серед діалогів`);
+    throw new Error(`❌ Групу "${groupName}" не знайдено серед діалогів`);
   }
 
   return match.entity;
