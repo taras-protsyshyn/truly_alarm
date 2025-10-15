@@ -1,6 +1,6 @@
 import { targetArea } from "../config.js";
 
-export async function checkIfAlarmInArea(): Promise<boolean> {
+export async function checkIfAlertInInterestedArea(): Promise<boolean> {
   try {
     const res = await fetch(
       `https://api.alerts.in.ua/v1/iot/active_air_raid_alerts/${targetArea}.json?token=${process.env.ALERTSUA_TOKEN}`

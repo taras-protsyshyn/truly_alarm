@@ -5,7 +5,7 @@ type TgSourceChannelListener = {
   channelId: BigInteger;
   client: TelegramClient;
   onMsg: (msg: any) => void;
-  validateMessage: (msg: string) => boolean;
+  validateMessage: (msg: string) => Promise<boolean>;
 };
 
 export async function listenSourceChannel({
@@ -18,7 +18,8 @@ export async function listenSourceChannel({
     const msg = update.message;
 
     if (msg && msg.peerId?.channelId?.equals(channelId)) {
-      if (validateMessage(msg.message)) {
+      const validMessage = await validateMessage(msg.message);
+      if (validMessage) {
         await onMsg(msg);
       }
     }

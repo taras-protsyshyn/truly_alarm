@@ -1,5 +1,5 @@
 import { sourceChanel, targetGroup } from "../config.js";
-import { isInterestedAlarm } from "../isInterestedAlarm.js";
+import { validateAlarm } from "../validateAlert/validateAlarm.js";
 import { forwardToTargetGroup } from "./forwardToTargetGroup.js";
 import { listenSourceChannel } from "./listenSourceChannel.js";
 import { resolveTargetGroup } from "./resolveTargetGroup.js";
@@ -21,7 +21,7 @@ export async function startTg({
   await listenSourceChannel({
     channelId: sourceChEntity.id,
     client,
-    validateMessage: isInterestedAlarm,
+    validateMessage: validateAlarm,
     onMsg: async (msg) => {
       await forwardToTargetGroup({
         client,

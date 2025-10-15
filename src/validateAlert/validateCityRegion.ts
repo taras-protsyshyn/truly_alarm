@@ -13,8 +13,6 @@ const interestedRegions = [
   "півндений схід",
 ];
 
-export function isInterestedAlarm(text: string): boolean {
-  console.log("Checking text:", text);
-
+export function validateCityRegion(text: string): boolean {
   return interestedRegions.some((kw) => text.includes(kw));
 }
