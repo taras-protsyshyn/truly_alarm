@@ -1,9 +1,11 @@
-import { targetUser } from "./config.js";
+import { targetUser, targetUserPhoneNumber } from "./config.js";
 import { startTg } from "./tg/telegram.js";
+import { makeVoiceCall } from "./twilio.js";
 
 await startTg({
   targetUser,
-  onSkipUserReaction: () => {
-    console.log("⚠️ Користувач не відреагував => маєа бути дзвінок на його мобільний");
+  onSkipUserReaction: async () => {
+    console.log("⚠️ Користувач не відреагував => дзвінок на його мобільний");
+    await makeVoiceCall(targetUserPhoneNumber);
   },
 });
