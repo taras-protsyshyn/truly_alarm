@@ -3,7 +3,7 @@ import { isThatKABPoNashuDushu } from "./isThatKABPoNashuDushu.js";
 import { validateCityRegion } from "./validateCityRegion.js";
 
 // TODO: глобальні змінні - погана практика, треба буде переробити
-let alarm = false;
+let alarm = await checkIfAlertInInterestedArea();
 let lastAlarmCheck = 0;
 
 export async function validateAlarm(text: string): Promise<boolean> {
