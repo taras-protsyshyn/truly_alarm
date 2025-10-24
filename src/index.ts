@@ -5,7 +5,9 @@ import { makeVoiceCall } from "./twilio.js";
 await startTg({
   targetUser,
   onSkipUserReaction: async () => {
-    console.log("⚠️ Користувач не відреагував => дзвінок на його мобільний");
+    console.log(
+      `⚠️ Користувач не відреагував => дзвінок на його мобільний ${targetUserPhoneNumber}`
+    );
     await makeVoiceCall(targetUserPhoneNumber);
   },
 });

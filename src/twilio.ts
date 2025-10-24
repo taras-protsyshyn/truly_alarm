@@ -1,21 +1,20 @@
 import twilio from "twilio";
 
-const accountSid = process.env.TWILIO_SID!;
-const authToken = process.env.TWILIO_TOKEN!;
-const twilioNumber = process.env.TWILIO_NUMBER!;
+import { twilioAccountSid, twilioAuthToken, twilioNumber } from "./config.js";
 
-const client = twilio(accountSid, authToken);
+const client = twilio(twilioAccountSid, twilioAuthToken);
+
+const voiceScript =
+  '<Response><Say voice="alice" language="en-US">Attention! Critical event! This is an automated call.</Say></Response>';
 
 export async function makeVoiceCall(to: string) {
-  const voiceScriptUrl = process.env.VOICE_SCRIPT_URL!;
-
   const call = await client.calls.create({
     to,
     from: twilioNumber,
-    url: voiceScriptUrl,
-    method: "GET",
+    twiml: voiceScript,
   });
 
-  console.log(`📞 Дзвінок запущено do ${to}`);
+  console.log(` 📞 Дзвінок створено: ${call.sid}`);
+
   return call.sid;
 }
